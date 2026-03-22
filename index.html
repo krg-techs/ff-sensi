@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FF SensMatrix | Free Fire Sensitivity Calculator 0-200</title>
+<meta name="description" content="FF SensMatrix — Free Fire sensitivity calculator 0-200. Headshot-optimized settings for your phone. Free."/>
+<meta name="robots" content="index,follow"/>
+<meta name="theme-color" content="#0C1A2B"/>
+<meta property="og:site_name" content="FF SensMatrix"/>
+<meta property="og:title" content="FF SensMatrix | Free Fire Sensitivity 0-200"/>
+<link rel="canonical" href="https://krg-techs.github.io/ff-sensi/"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#091422;
+  color:#C8E6F0;
+  font-family:'Rajdhani','Segoe UI',Arial,sans-serif;
+  font-size:16px;
+  min-height:100vh;
+}
+.wrap{max-width:820px;margin:0 auto;padding:16px 14px 60px;}
+header{text-align:center;padding:30px 0 20px;}
+.chip{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:4px;color:#B6FF3B;border:1px solid rgba(182,255,59,0.3);padding:4px 13px;border-radius:2px;margin-bottom:10px;text-transform:uppercase;}
+h1{font-family:'Orbitron','Arial Black',sans-serif;font-size:clamp(22px,7vw,44px);font-weight:900;color:#fff;text-shadow:0 0 24px rgba(182,255,59,0.4);letter-spacing:2px;line-height:1.1;}
+h1 span{color:#B6FF3B;}
+.sub{margin-top:7px;font-size:12px;color:#5a7a92;letter-spacing:2px;text-transform:uppercase;}
+.card{background:#0d1e30;border:1px solid rgba(182,255,59,0.25);border-radius:12px;padding:22px 18px;margin-top:18px;}
+.ctitle{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:#B6FF3B;text-transform:uppercase;margin-bottom:16px;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+@media(max-width:500px){.grid{grid-template-columns:1fr;}}
+.full{grid-column:1/-1;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#B6FF3B;}
+.hint{font-size:11px;color:#5a7a92;}
+input,select{
+  background:#060e18;border:1px solid rgba(182,255,59,0.25);
+  border-radius:6px;color:#C8E6F0;
+  font-family:'Rajdhani',Arial,sans-serif;font-size:15px;font-weight:600;
+  padding:11px 12px;outline:none;width:100%;
+  -webkit-appearance:none;appearance:none;
+}
+input:focus,select:focus{border-color:#B6FF3B;box-shadow:0 0 0 3px rgba(182,255,59,0.1);}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B6FF3B' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;}
+select option{background:#0C1A2B;}
+.btn{margin-top:20px;width:100%;padding:15px;background:#B6FF3B;border:none;border-radius:8px;color:#091422;font-family:'Orbitron',sans-serif;font-size:12px;font-weight:900;letter-spacing:3px;text-transform:uppercase;cursor:pointer;}
+.btn:active{opacity:.85;}
+#results{display:none;margin-top:20px;}
+.rhead{text-align:center;margin-bottom:20px;}
+.rhead h2{font-family:'Orbitron',sans-serif;font-size:clamp(16px,5vw,22px);font-weight:900;color:#B6FF3B;text-shadow:0 0 24px rgba(182,255,59,0.4);letter-spacing:2px;}
+#rsub{font-size:11px;color:#5a7a92;margin-top:5px;font-family:'Share Tech Mono',monospace;}
+#tier{display:inline-block;margin-top:7px;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;border:1px solid #B6FF3B;padding:3px 11px;border-radius:3px;color:#B6FF3B;}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:10px;margin-bottom:16px;}
+.stile{background:rgba(182,255,59,0.04);border:1px solid rgba(182,255,59,0.22);border-radius:10px;padding:13px 8px;text-align:center;}
+.sname{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;color:#5a7a92;text-transform:uppercase;margin-bottom:6px;}
+.sval{font-family:'Orbitron',sans-serif;font-size:32px;font-weight:900;color:#B6FF3B;text-shadow:0 0 16px rgba(182,255,59,0.4);line-height:1;}
+.sbar{margin-top:6px;height:2px;background:rgba(182,255,59,0.1);border-radius:2px;}
+.sbar-f{height:100%;background:#B6FF3B;border-radius:2px;transition:width .8s ease;}
+.ftile{grid-column:span 2;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;gap:10px;}
+@media(max-width:360px){.ftile{grid-column:span 1;flex-direction:column;}}
+.fpct{font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;color:#3BFFD6;white-space:nowrap;}
+.bcopy{width:100%;padding:13px;background:#B6FF3B;border:none;border-radius:8px;color:#091422;font-family:'Orbitron',sans-serif;font-size:11px;font-weight:900;letter-spacing:3px;text-transform:uppercase;cursor:pointer;margin-top:4px;}
+.bcopy:active{opacity:.85;}
+.cconf{text-align:center;font-family:'Share Tech Mono',monospace;font-size:11px;color:#B6FF3B;margin-top:6px;min-height:14px;opacity:0;transition:opacity .3s;}
+.cconf.show{opacity:1;}
+.tips{margin-top:20px;border:1px solid rgba(59,255,214,0.22);border-radius:12px;background:rgba(59,255,214,0.025);}
+.tips-h{padding:13px 18px 10px;border-bottom:1px solid rgba(59,255,214,0.1);font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:#3BFFD6;text-transform:uppercase;}
+.tips-b{padding:13px 18px 18px;display:flex;flex-direction:column;gap:13px;}
+.tip{display:flex;gap:11px;align-items:flex-start;}
+.tico{width:32px;height:32px;border:1px solid rgba(59,255,214,0.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.ttitle{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:#3BFFD6;text-transform:uppercase;margin-bottom:3px;}
+.tdesc{font-size:13px;color:#C8E6F0;line-height:1.55;}
+.tdesc strong{color:#B6FF3B;font-weight:600;}
+.disc{margin-top:18px;padding:12px 14px;background:rgba(182,255,59,0.04);border-left:3px solid rgba(182,255,59,0.5);border-radius:0 6px 6px 0;font-size:12px;color:#5a7a92;line-height:1.6;}
+.disc span{color:#B6FF3B;font-weight:600;}
+.breset{width:100%;padding:12px;background:transparent;border:1px solid rgba(182,255,59,0.25);border-radius:8px;color:#5a7a92;font-family:'Rajdhani',Arial,sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-top:10px;}
+.breset:active{border-color:#B6FF3B;color:#B6FF3B;}
+
+/* TRAINING SECTION */
+.train-wrap{margin-top:44px;}
+.train-head{text-align:center;margin-bottom:24px;}
+.train-eye{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:4px;color:#B6FF3B;opacity:.7;margin-bottom:7px;text-transform:uppercase;}
+.train-title{font-family:'Orbitron',sans-serif;font-size:clamp(18px,5.5vw,28px);font-weight:900;color:#fff;text-shadow:0 0 28px rgba(182,255,59,0.35);letter-spacing:1px;line-height:1.15;margin-bottom:6px;}
+.train-sub{font-size:11px;color:#5a7a92;letter-spacing:1.5px;text-transform:uppercase;font-family:'Share Tech Mono',monospace;}
+.steps{display:flex;flex-direction:column;gap:13px;}
+.step{background:#0b1c2d;border:1px solid rgba(182,255,59,0.22);border-radius:12px;overflow:hidden;}
+.step:nth-child(even){border-color:rgba(59,255,214,0.2);}
+.step-h{display:flex;align-items:center;gap:12px;padding:14px 15px 11px;border-bottom:1px solid rgba(182,255,59,0.07);}
+.step:nth-child(even) .step-h{border-bottom-color:rgba(59,255,214,0.07);}
+.sbadge{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;flex-shrink:0;}
+.g{background:rgba(182,255,59,0.09);border:1px solid rgba(182,255,59,0.3);color:#B6FF3B;}
+.c{background:rgba(59,255,214,0.07);border:1px solid rgba(59,255,214,0.28);color:#3BFFD6;}
+.smeta{flex:1;min-width:0;}
+.stitle{font-family:'Orbitron',sans-serif;font-size:clamp(11px,3.5vw,14px);font-weight:700;color:#fff;letter-spacing:.5px;line-height:1.2;margin-bottom:2px;}
+.stime{font-family:'Share Tech Mono',monospace;font-size:10px;color:#B6FF3B;letter-spacing:1.5px;}
+.step:nth-child(even) .stime{color:#3BFFD6;}
+.step-b{padding:13px 15px 15px;display:flex;flex-direction:column;gap:8px;}
+.srow{display:flex;gap:9px;font-size:13px;color:#C8E6F0;line-height:1.55;align-items:flex-start;}
+.srow strong{color:#B6FF3B;font-weight:600;}
+.step:nth-child(even) .srow strong{color:#3BFFD6;}
+.slbl{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:#B6FF3B;background:rgba(182,255,59,0.07);border:1px solid rgba(182,255,59,0.18);border-radius:3px;padding:2px 5px;white-space:nowrap;margin-top:2px;flex-shrink:0;}
+.step:nth-child(even) .slbl{color:#3BFFD6;background:rgba(59,255,214,0.05);border-color:rgba(59,255,214,0.16);}
+.ptip{background:rgba(182,255,59,0.04);border:1px solid rgba(182,255,59,0.2);border-left:3px solid #B6FF3B;border-radius:0 8px 8px 0;padding:10px 12px;margin-top:2px;}
+.ctip{background:rgba(59,255,214,0.035);border-color:rgba(59,255,214,0.16);border-left-color:#3BFFD6;}
+.plbl{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:#B6FF3B;margin-bottom:4px;text-transform:uppercase;}
+.clbl{color:#3BFFD6;}
+.ptxt{font-size:12.5px;color:#C8E6F0;line-height:1.6;}
+.ptxt strong{color:#B6FF3B;font-weight:600;}
+.ctip .ptxt strong{color:#3BFFD6;}
+.jvis{display:flex;align-items:center;gap:12px;padding:11px 12px;background:rgba(182,255,59,0.03);border:1px dashed rgba(182,255,59,0.17);border-radius:7px;margin-top:2px;}
+.jlbl{font-size:11.5px;color:#5a7a92;line-height:1.5;font-style:italic;}
+.rule-box{margin-top:18px;background:rgba(182,255,59,0.04);border:1px solid rgba(182,255,59,0.28);border-radius:12px;padding:17px;display:flex;gap:13px;align-items:flex-start;}
+.rule-icon{font-size:20px;flex-shrink:0;}
+.rule-body{flex:1;min-width:0;}
+.rule-title{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:#B6FF3B;margin-bottom:11px;}
+.rule-rows{display:flex;flex-direction:column;gap:8px;margin-bottom:11px;}
+.rrow{display:flex;align-items:center;flex-wrap:wrap;gap:7px;font-size:13px;}
+.rchip{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;padding:3px 8px;border-radius:4px;white-space:nowrap;}
+.bchip{background:rgba(255,160,60,.1);border:1px solid rgba(255,160,60,.3);color:#ffa03c;}
+.ochip{background:rgba(255,90,90,.09);border:1px solid rgba(255,90,90,.28);color:#ff7070;}
+.rarrow{color:#5a7a92;font-size:14px;}
+.ract{font-size:13px;color:#C8E6F0;}
+.ract strong{color:#B6FF3B;}
+.rnote{font-size:11px;color:#5a7a92;line-height:1.6;border-top:1px solid rgba(182,255,59,0.2);padding-top:10px;}
+.rnote strong{color:#C8E6F0;}
+@media(max-width:480px){
+  .step-h{padding:11px 12px 9px;gap:9px;}
+  .step-b{padding:11px 12px 13px;}
+  .rrow{flex-direction:column;align-items:flex-start;gap:4px;}
+  .jvis{flex-direction:column;text-align:center;gap:7px;}
+}
+footer{text-align:center;margin-top:46px;font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a7a92;letter-spacing:1.5px;opacity:.4;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="chip">◈ FF SensMatrix v3.1 ◈</div>
+    <h1>FREE FIRE<br><span>SENSITIVITY</span> CALC</h1>
+    <p class="sub">Precision-tuned · Data-driven · Battle-ready</p>
+  </header>
+
+  <div class="card" id="calc-card">
+    <div class="ctitle">⬡ Input Parameters</div>
+    <div class="grid">
+      <div class="fg full">
+        <label>Phone Model</label>
+        <input type="text" id="phone" placeholder="e.g. Realme C65 5G, Vivo Y9i…"/>
+      </div>
+      <div class="fg full">
+        <label>Processor / Chipset</label>
+        <input type="text" id="proc" placeholder="e.g. Dimensity 6300, Helio G85…"/>
+      </div>
+      <div class="fg">
+        <label>Screen Size (inches)</label>
+        <input type="number" id="screen" placeholder="6.5" step="0.1" min="4" max="9"/>
+        <span class="hint">Typical 5.5″ – 7.0″</span>
+      </div>
+      <div class="fg">
+        <label>Base DPI</label>
+        <input type="number" id="dpi" placeholder="392" min="100" max="900"/>
+        <span class="hint">Developer Options</span>
+      </div>
+      <div class="fg">
+        <label>RAM (GB)</label>
+        <select id="ram">
+          <option value="" disabled selected>Select RAM</option>
+          <option value="2">2 GB</option>
+          <option value="3">3 GB</option>
+          <option value="4">4 GB</option>
+          <option value="6">6 GB</option>
+          <option value="8">8 GB</option>
+          <option value="12">12 GB</option>
+          <option value="16">16 GB</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Play Style</label>
+        <select id="style">
+          <option value="" disabled selected>Select style</option>
+          <option value="rusher">Rusher / Aggressive</option>
+          <option value="balanced">Balanced</option>
+          <option value="sniper">Sniper / Passive</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn" onclick="calc()">⚡ Calculate Optimal Settings</button>
+  </div>
+
+  <div id="results">
+    <div class="card">
+      <div class="rhead">
+        <h2>◈ OPTIMAL SENSITIVITY PROFILE</h2>
+        <p id="rsub">Calibrated for your device</p>
+        <span id="tier">CHIP TIER: —</span>
+      </div>
+      <div class="sgrid" id="sgrid"></div>
+      <button class="bcopy" onclick="copy()">⬇ Copy Settings to Clipboard</button>
+      <div class="cconf" id="cconf">✓ Copied to clipboard!</div>
+      <div class="tips">
+        <div class="tips-h">🎯 Training Module — Pro Tips</div>
+        <div class="tips-b" id="tips-b"></div>
+      </div>
+      <div class="disc">
+        <span>⚠ Advisory:</span> These are optimized starting points. Tweak each value by <span>±5 points</span> in Training Grounds to perfect your muscle memory.
+      </div>
+      <button class="breset" onclick="reset()">↩ Recalculate</button>
+    </div>
+  </div>
+
+  <!-- TRAINING ROUTINE -->
+  <div class="train-wrap">
+    <div class="train-head">
+      <div class="train-eye">◈ Daily Muscle Memory Protocol ◈</div>
+      <div class="train-title">🎯 Master the Red Numbers</div>
+      <div class="train-sub">10-Minute Daily Routine Before Every Ranked Session</div>
+    </div>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-h">
+          <div class="sbadge g">01</div>
+          <div class="smeta">
+            <div class="stitle">The "Feel" Warm-Up</div>
+            <div class="stime">⏱ 2 Minutes</div>
+          </div>
+        </div>
+        <div class="step-b">
+          <div class="srow"><span class="slbl">ACTION</span><span>Enter Training Grounds with <strong>no weapon</strong>.</span></div>
+          <div class="srow"><span class="slbl">GOAL</span><span>Sprint and jump while <strong>flicking your screen 180°</strong> back and forth.</span></div>
+          <div class="srow"><span class="slbl why">WHY</span><span style="opacity:.72;font-size:12px;">Gets your thumb calibrated to General sensitivity. Cold thumbs miss — don't skip this.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-h">
+          <div class="sbadge c">02</div>
+          <div class="smeta">
+            <div class="stitle">The "Straight Drag" Technique</div>
+            <div class="stime">⏱ 3 Minutes</div>
+          </div>
+        </div>
+        <div class="step-b">
+          <div class="srow"><span class="slbl">ACTION</span><span>Pick up an <strong>AR (M4A1 or AK47)</strong>. Stand still, aim at bot's chest.</span></div>
+          <div class="srow"><span class="slbl">GOAL</span><span>Drag your fire button <strong>upward in a straight line</strong>.</span></div>
+          <div class="ptip ctip">
+            <div class="plbl clbl">⚡ PRO TIP</div>
+            <div class="ptxt">Don't <em>"rip"</em> the button. Use a <strong>smooth, medium-speed swipe</strong> to let auto-aim lock onto the head. Speed kills accuracy here.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-h">
+          <div class="sbadge g">03</div>
+          <div class="smeta">
+            <div class="stitle">The "Rotation Drag"</div>
+            <div class="stime">⏱ 3 Minutes</div>
+          </div>
+        </div>
+        <div class="step-b">
+          <div class="srow"><span class="slbl">ACTION</span><span>Equip <strong>Shotgun (M1887 or Mag-7)</strong>. Close the distance to the bot.</span></div>
+          <div class="srow"><span class="slbl">GOAL</span><span>Move fire button in a <strong>"J" shape</strong> — down then up.</span></div>
+          <div class="jvis">
+            <svg viewBox="0 0 60 80" width="42" height="56" fill="none">
+              <path d="M30 8 L30 58 Q30 72 18 72 Q6 72 6 60" stroke="#B6FF3B" stroke-width="3.5" stroke-linecap="round"/>
+              <circle cx="30" cy="8" r="4" fill="#B6FF3B"/>
+              <polygon points="6,52 2,64 12,60" fill="#B6FF3B"/>
+            </svg>
+            <div class="jlbl">The "J" drag — secret to headshots on moving / close-range targets</div>
+          </div>
+          <div class="srow"><span class="slbl why">WHY</span><span style="opacity:.72;font-size:12px;">The curve compensates for enemy lateral movement. Use this for shotgun rush plays.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-h">
+          <div class="sbadge c">04</div>
+          <div class="smeta">
+            <div class="stitle">Sniper Flick Practice</div>
+            <div class="stime">⏱ 2 Minutes</div>
+          </div>
+        </div>
+        <div class="step-b">
+          <div class="srow"><span class="slbl">ACTION</span><span>Use the <strong>AWM or M82B</strong>.</span></div>
+          <div class="srow"><span class="slbl">GOAL</span><span><strong>Quick-scope and flick</strong> to target. Aim for head zone in one motion.</span></div>
+          <div class="ptip ctip">
+            <div class="plbl clbl">🔧 ADJUSTMENT</div>
+            <div class="ptxt"><strong>Overshooting?</strong> Lower Sniper Scope by <strong>−5 points</strong>.<br/><strong>Too slow?</strong> Raise it by <strong>+5 points</strong>.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="rule-box">
+      <div class="rule-icon">⚠</div>
+      <div class="rule-body">
+        <div class="rule-title">THE GOLDEN CALIBRATION RULE</div>
+        <div class="rule-rows">
+          <div class="rrow">
+            <span class="rchip bchip">HITTING BODY ONLY</span>
+            <span class="rarrow">→</span>
+            <span class="ract">Increase <strong>General</strong> by <strong>+5</strong></span>
+          </div>
+          <div class="rrow">
+            <span class="rchip ochip">CROSSHAIR FLYING OVER HEAD</span>
+            <span class="rarrow">→</span>
+            <span class="ract">Decrease <strong>General</strong> by <strong>−5</strong></span>
+          </div>
+        </div>
+        <div class="rnote">Tweak in ±5 increments only. Never change more than one setting at a time. Give each change <strong>200 shots</strong> before judging.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>FF SENSMATRIX — NOT AFFILIATED WITH GARENA FREE FIRE — EDUCATIONAL USE ONLY</footer>
+</div>
+
+<script>
+function chipTier(p){
+  p=(p||'').toLowerCase();
+  if(/snapdragon 8 (elite|gen [34])|8\+ gen|8 gen [12]|snapdragon 88[0-9]|snapdragon 870|snapdragon 865|dimensity 9\d{3}|a1[5-9] bionic|a18|exynos 2[1-5]\d{2}|tensor g[3-4]|kirin 9000/.test(p))return 5;
+  if(/snapdragon 7 gen|snapdragon 7s|snapdragon 78[02]g|snapdragon 7[68]\dg|dimensity 8\d{3}|dimensity 1[0-9]\d{2}|helio g99|exynos 1[3-5]\d{2}|a14 bionic|tensor g[12]|kirin 98/.test(p))return 4;
+  if(/snapdragon 6 gen|snapdragon 695|snapdragon 680|snapdragon 73[02]|snapdragon 75[0-9]|dimensity 7\d{3}|helio g9[0-8]|helio g88|kirin 8[0-9]{2}|ex
