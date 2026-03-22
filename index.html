@@ -248,9 +248,9 @@
     --text-muted: #5a7a92;
     --border: rgba(182, 255, 59, 0.2);
     --border-strong: rgba(182, 255, 59, 0.5);
-    --font-display: 'Orbitron', sans-serif;
-    --font-body: 'Rajdhani', sans-serif;
-    --font-mono: 'Share Tech Mono', monospace;
+    --font-display: 'Orbitron', 'Arial Black', 'Impact', sans-serif;
+    --font-body: 'Rajdhani', 'Segoe UI', 'Arial', sans-serif;
+    --font-mono: 'Share Tech Mono', 'Courier New', 'Lucida Console', monospace;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -265,6 +265,8 @@
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   /* ─── BACKGROUND GRID + RADIAL ─── */
@@ -507,9 +509,4 @@
     margin-top: 28px;
     width: 100%;
     padding: 16px;
-    background: transparent;
-    border: 2px solid var(--green);
-    border-radius: 8px;
-    color: var(--green);
-    font-family: var(--font-display);
-    font-siz
+    background: transp
