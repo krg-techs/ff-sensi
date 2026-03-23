@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FF SensMatrix | Free Fire Sensitivity Calculator</title>
+<style>
+body { background: #091422; color: #C8E6F0; font-family: Arial, sans-serif; margin: 0; padding: 16px; }
+h1 { color: #B6FF3B; text-align: center; font-size: 28px; margin-bottom: 4px; }
+p.sub { text-align: center; color: #5a7a92; font-size: 13px; margin-bottom: 24px; }
+.card { background: #0d1e30; border: 1px solid rgba(182,255,59,0.3); border-radius: 12px; padding: 20px; max-width: 600px; margin: 0 auto 24px; }
+.card h2 { color: #B6FF3B; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px; }
+.row { margin-bottom: 14px; }
+label { display: block; color: #B6FF3B; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+input, select { width: 100%; padding: 12px; background: #091422; border: 1px solid rgba(182,255,59,0.3); border-radius: 6px; color: #C8E6F0; font-size: 15px; box-sizing: border-box; }
+input:focus, select:focus { outline: none; border-color: #B6FF3B; }
+select option { background: #091422; }
+.btn { width: 100%; padding: 16px; margin-top: 8px; background: #B6FF3B; border: none; border-radius: 8px; color: #091422; font-size: 16px; font-weight: 900; letter-spacing: 2px; cursor: pointer; }
+.btn:active { opacity: 0.8; }
+#results { display: none; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.box { background: rgba(182,255,59,0.05); border: 1px solid rgba(182,255,59,0.2); border-radius: 10px; padding: 14px 10px; text-align: center; }
+.box .lbl { font-size: 11px; color: #5a7a92; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.box .val { font-size: 38px; font-weight: 900; color: #B6FF3B; line-height: 1; }
+.fire-box { grid-column: span 2; display: flex; justify-content: space-between; align-items: center; }
+.fire-box .val { font-size: 32px; color: #3BFFD6; }
+.copybtn { width: 100%; padding: 14px; background: #B6FF3B; border: none; border-radius: 8px; color: #091422; font-size: 14px; font-weight: 900; letter-spacing: 2px; cursor: pointer; margin-top: 4px; }
+.tip-section { margin-top: 20px; background: rgba(59,255,214,0.04); border: 1px solid rgba(59,255,214,0.2); border-radius: 10px; padding: 16px; }
+.tip-section h3 { color: #3BFFD6; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+.tip { margin-bottom: 12px; font-size: 14px; line-height: 1.6; }
+.tip strong { color: #B6FF3B; }
+.recalc { width: 100%; padding: 12px; background: transparent; border: 1px solid rgba(182,255,59,0.3); border-radius: 8px; color: #5a7a92; font-size: 13px; cursor: pointer; margin-top: 10px; letter-spacing: 2px; text-transform: uppercase; }
+.notice { background: rgba(182,255,59,0.06); border-left: 3px solid #B6FF3B; padding: 12px 14px; border-radius: 0 6px 6px 0; font-size: 13px; color: #5a7a92; margin-top: 14px; line-height: 1.6; }
+.notice span { color: #B6FF3B; font-weight: bold; }
+
+/* Training section */
+.training { max-width: 600px; margin: 0 auto 60px; }
+.training h2 { color: #fff; font-size: 22px; text-align: center; margin-bottom: 4px; }
+.training p { color: #5a7a92; font-size: 12px; text-align: center; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+.step { background: #0d1e30; border: 1px solid rgba(182,255,59,0.2); border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+.step:nth-child(even) { border-color: rgba(59,255,214,0.2); }
+.step-num { display: inline-block; background: rgba(182,255,59,0.1); color: #B6FF3B; border: 1px solid rgba(182,255,59,0.3); border-radius: 6px; padding: 2px 10px; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+.step:nth-child(even) .step-num { background: rgba(59,255,214,0.08); color: #3BFFD6; border-color: rgba(59,255,214,0.3); }
+.step h3 { color: #fff; font-size: 15px; margin-bottom: 4px; }
+.step .time { color: #B6FF3B; font-size: 12px; margin-bottom: 10px; }
+.step:nth-child(even) .time { color: #3BFFD6; }
+.step p { font-size: 13px; color: #C8E6F0; line-height: 1.6; margin: 0; }
+.step p strong { color: #B6FF3B; }
+.step:nth-child(even) p strong { color: #3BFFD6; }
+.rule { background: rgba(182,255,59,0.05); border: 1px solid rgba(182,255,59,0.25); border-radius: 10px; padding: 18px; margin-top: 16px; }
+.rule h3 { color: #B6FF3B; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+.rule-row { background: rgba(0,0,0,0.2); border-radius: 6px; padding: 10px 14px; margin-bottom: 8px; font-size: 13px; }
+.rule-row span { font-weight: bold; }
+.body-hit { color: #ffa03c; }
+.over-hit { color: #ff7070; }
+footer { text-align: center; color: #5a7a92; font-size: 11px; letter-spacing: 1px; padding: 20px 0 40px; opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<h1>🎯 FF SensMatrix</h1>
+<p class="sub">FREE FIRE SENSITIVITY CALCULATOR · 0–200 SCALE</p>
+
+<!-- CALCULATOR -->
+<div class="card" id="calcCard">
+  <h2>⬡ Enter Your Details</h2>
+
+  <div class="row">
+    <label>Phone Model (optional)</label>
+    <input type="text" id="inPhone" placeholder="e.g. Samsung Galaxy A54">
+  </div>
+
+  <div class="row">
+    <label>Processor / Chipset (optional)</label>
+    <input type="text" id="inProc" placeholder="e.g. Snapdragon 778G, Helio G99">
+  </div>
+
+  <div class="row">
+    <label>Screen Size (inches) *</label>
+    <input type="number" id="inSS" placeholder="e.g. 6.5" step="0.1" min="4" max="9">
+  </div>
+
+  <div class="row">
+    <label>Display DPI *</label>
+    <input type="number" id="inDPI" placeholder="e.g. 392" step="1" min="100" max="900">
+    <div style="font-size:11px;color:#5a7a92;margin-top:4px">Check Settings → About Phone → Display</div>
+  </div>
+
+  <div class="row">
+    <label>RAM *</label>
+    <select id="inRAM">
+      <option value="">-- Select RAM --</option>
+      <option value="2">2 GB</option>
+      <option value="3">3 GB</option>
+      <option value="4">4 GB</option>
+      <option value="6">6 GB</option>
+      <option value="8">8 GB</option>
+      <option value="12">12 GB</option>
+      <option value="16">16 GB+</option>
+    </select>
+  </div>
+
+  <div class="row">
+    <label>Play Style *</label>
+    <select id="inPS">
+      <option value="">-- Select Play Style --</option>
+      <option value="rusher">Rusher / Aggressive</option>
+      <option value="balanced">Balanced</option>
+      <option value="sniper">Sniper / Passive</option>
+    </select>
+  </div>
+
+  <button class="btn" onclick="calculate()">⚡ CALCULATE OPTIMAL SETTINGS</button>
+</div>
+
+<!-- RESULTS -->
+<div class="card" id="results">
+  <h2>◈ Your Sensitivity Profile</h2>
+  <div id="deviceInfo" style="font-size:12px;color:#5a7a92;margin-bottom:14px;font-family:monospace"></div>
+
+  <div class="grid">
+    <div class="box"><div class="lbl">General</div><div class="val" id="vGen">0</div></div>
+    <div class="box"><div class="lbl">Red Dot</div><div class="val" id="vRed">0</div></div>
+    <div class="box"><div class="lbl">2x Scope</div><div class="val" id="v2x">0</div></div>
+    <div class="box"><div class="lbl">4x Scope</div><div class="val" id="v4x">0</div></div>
+    <div class="box"><div class="lbl">Sniper</div><div class="val" id="vSnp">0</div></div>
+    <div class="box"><div class="lbl">Free Look</div><div class="val" id="vFL">0</div></div>
+    <div class="box fire-box">
+      <div><div class="lbl">Fire Button</div><div style="font-size:11px;color:#5a7a92">Screen %</div></div>
+      <div class="val" id="vFire">0%</div>
+    </div>
+  </div>
+
+  <button class="copybtn" onclick="copySettings()">📋 COPY SETTINGS</button>
+  <div id="copied" style="text-align:center;color:#B6FF3B;font-size:13px;margin-top:8px;display:none">✓ Copied to clipboard!</div>
+
+  <div class="tip-section">
+    <h3>🎯 Pro Tips For Your Settings</h3>
+    <div id="tipContent"></div>
+  </div>
+
+  <div class="notice">
+    <span>⚠ Note:</span> These are starting points. Go to Training Grounds and adjust each value by <span>±5</span> until it feels right for you.
+  </div>
+
+  <button class="recalc" onclick="recalc()">↩ RECALCULATE</button>
+</div>
+
+<!-- TRAINING ROUTINE -->
+<div class="training">
+  <h2>🎯 10-Min Daily Training</h2>
+  <p>Do this before every ranked session</p>
+
+  <div class="step">
+    <div class="step-num">STEP 01</div>
+    <h3>Feel Warm-Up</h3>
+    <div class="time">⏱ 2 Minutes</div>
+    <p>Enter Training Grounds with <strong>no weapon</strong>. Sprint and jump while doing <strong>180° flick swipes</strong> back and forth across the screen. This wakes up your thumbs and gets them synced to your General sensitivity.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-num">STEP 02</div>
+    <h3>Straight Drag Headshots</h3>
+    <div class="time">⏱ 3 Minutes</div>
+    <p>Pick up an <strong>AR (M4A1 or AK47)</strong>. Aim at a bot's chest and drag your fire button <strong>straight upward</strong> in one smooth motion. Use a medium-speed swipe — not too fast. The drag should carry the crosshair from chest to head automatically.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-num">STEP 03</div>
+    <h3>J-Shape Drag (Close Range)</h3>
+    <div class="time">⏱ 3 Minutes</div>
+    <p>Equip a <strong>Shotgun (M1887)</strong>. Get close to the bot. Instead of dragging straight up, drag your fire button in a <strong>"J" shape — down first, then curve upward</strong>. This is the secret technique for hitting headshots on moving enemies at close range.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-num">STEP 04</div>
+    <h3>Sniper Flick Practice</h3>
+    <div class="time">⏱ 2 Minutes</div>
+    <p>Use the <strong>AWM or M82B</strong>. Quick-scope and flick to the target in one motion aiming for the head. If you keep <strong>overshooting → lower Sniper −5</strong>. If you feel <strong>too slow → raise Sniper +5</strong>.</p>
+  </div>
+
+  <div class="rule">
+    <h3>⚠ The Golden Rule</h3>
+    <div class="rule-row"><span class="body-hit">Hitting body only?</span> → Increase General by <span style="color:#B6FF3B">+5</span></div>
+    <div class="rule-row"><span class="over-hit">Crosshair flying over head?</span> → Decrease General by <span style="color:#B6FF3B">−5</span></div>
+    <p style="font-size:12px;color:#5a7a92;margin-top:12px;line-height:1.6">Only change <strong style="color:#C8E6F0">one setting at a time</strong>. Give it <strong style="color:#C8E6F0">200 shots</strong> before judging.</p>
+  </div>
+</div>
+
+<footer>FF SENSMATRIX — NOT AFFILIATED WITH GARENA FREE FIRE — EDUCATIONAL USE ONLY</footer>
+
+<script>
+function getTier(p) {
+  p = (p || '').toLowerCase();
+  if (/snapdragon 8 elite|snapdragon 8 gen [34]|snapdragon 8\+ gen|snapdragon 8 gen [12]|snapdragon 888|snapdragon 870|snapdragon 865|dimensity 9\d{3}|a1[5-9] bionic|a18|apple m[1-4]|exynos 2[12]\d{2}|tensor g[34]|kirin 9000/.test(p)) return 5;
+  if (/snapdragon 7 gen|snapdragon 7s gen|snapdragon 78[02]g|snapdragon 8[56]0|dimensity 8\d{3}|dimensity 1\d{3}|helio g99|exynos 1[3-5]\d{2}|a14 bionic|tensor g[12]|kirin 9[89]/.test(p)) return 4;
+  if (/snapdragon 6 gen|snapdragon 695|snapdragon 680|snapdragon 73[02]g|snapdragon 750|snapdragon 765|dimensity 7\d{3}|helio g9[0-8]|helio g88|kirin 8\d{2}|exynos 8\d{2}|unisoc t[78]\d{2}/.test(p)) return 3;
+  if (/snapdragon 4 gen|snapdragon 6[0-9]{2}|snapdragon 480|dimensity 6\d{3}|helio g8[0-5]|helio g7\d|helio g3[0-9]|unisoc t61\d|exynos 7\d{3}|kirin 7\d{2}/.test(p)) return 2;
+  return 1;
+}
+
+function calculate() {
+  var ss  = parseFloat(document.getElementById('inSS').value);
+  var dpi = parseFloat(document.getElementById('inDPI').value);
+  var ram = parseFloat(document.getElementById('inRAM').value);
+  var ps  = document.getElementById('inPS').value;
+
+  if (!ss || !dpi || !ram || !ps) {
+    alert('Please fill in Screen Size, DPI, RAM and Play Style.');
+    return;
+  }
+
+  var proc  = document.getElementById('inProc').value || '';
+  var phone = document.getElementById('inPhone').value || 'Your Device';
+
+  var b = 100;
+  if (ss >= 7.2) b -= 18; else if (ss >= 6.8) b -= 12; else if (ss >= 6.5) b -= 6; else if (ss < 5.5) b += 12;
+  if (dpi >= 600) b -= 24; else if (dpi >= 500) b -= 16; else if (dpi >= 440) b -= 8;
+  else if (dpi >= 380) b -= 3; else if (dpi >= 320) b += 4; else if (dpi >= 260) b += 12; else b += 20;
+  if (ram <= 2) b += 18; else if (ram <= 3) b += 11; else if (ram <= 4) b += 4;
+  else if (ram <= 8) b -= 4; else b -= 8;
+  var t = getTier(proc);
+  var tb = [0,18,10,4,-4,-10];
+  b += (tb[t] || 0);
+  if (ps === 'rusher') b += 9; else if (ps === 'sniper') b -= 14;
+  b = Math.round(Math.min(160, Math.max(40, b)));
+
+  function cl(v,lo,hi){ return Math.round(Math.min(hi,Math.max(lo,v))); }
+
+  var s = {
+    general:  b,
+    redDot:   cl(b-8, 28, 155),
+    scope2x:  cl(b*0.80, 22, 135),
+    scope4x:  cl(b*0.62, 15, 105),
+    sniper:   cl(b*0.28, 6, 48),
+    freeLook: cl(148 + (ps==='rusher'?12:ps==='sniper'?-8:0) + (t>=5?-6:t===4?-3:t<=2?5:0), 108, 200),
+    fireBtn:  ss<5.8?40:ss<6.3?45:ss<6.8?50:53
+  };
+
+  document.getElementById('vGen').textContent = s.general;
+  document.getElementById('vRed').textContent = s.redDot;
+  document.getElementById('v2x').textContent  = s.scope2x;
+  document.getElementById('v4x').textContent  = s.scope4x;
+  document.getElementById('vSnp').textContent = s.sniper;
+  document.getElementById('vFL').textContent  = s.freeLook;
+  document.getElementById('vFire').textContent = s.fireBtn + '%';
+
+  var tNames = ['','Budget','Lower-Mid','Mid-Range','Upper-Mid','Flagship'];
+  document.getElementById('deviceInfo').textContent =
+    phone + (proc ? ' · ' + proc : '') + ' · ' + ss + '" · ' + dpi + ' DPI · ' + ram + 'GB RAM · Chip: ' + (tNames[t]||'Unknown');
+
+  var dragT = b >= 115 ? 'fast flick (~0.8cm)' : b >= 95 ? 'smooth mid-arc (~1.2cm)' : 'slow precise (~1.8cm)';
+  var lagN  = t <= 2 ? ' Your chipset has some input delay — start your drag slightly early.' : t >= 5 ? ' Your chip is fast — commit to the drag fully.' : '';
+
+  document.getElementById('tipContent').innerHTML =
+    '<div class="tip">🔫 <strong>Drag Technique:</strong> Use a ' + dragT + ' drag. Fire at chest level and drag upward.' + lagN + ' After 3–5 days practice, expect 7–8 headshots out of 10.</div>' +
+    '<div class="tip">🎯 <strong>Pre-Aim:</strong> Always position crosshair at <strong>neck height</strong> before peeking. With 4x scope (' + s.scope4x + '), aim chest — recoil does the rest.</div>' +
+    '<div class="tip">📋 <strong>Warm-Up:</strong> Red Dot ' + s.redDot + ' → 2x Scope ' + s.scope2x + ' → Free Look ' + s.freeLook + '. Do the 10-min routine below before ranked every day.</div>';
+
+  window._copyData = '=== FF SensMatrix ===\nDevice: ' + phone + '\nGeneral: ' + s.general + '\nRed Dot: ' + s.redDot + '\n2x Scope: ' + s.scope2x + '\n4x Scope: ' + s.scope4x + '\nSniper: ' + s.sniper + '\nFree Look: ' + s.freeLook + '\nFire Button: ' + s.fireBtn + '%';
+
+  document.getElementById('calcCard').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+}
+
+function copySettings() {
+  if (!window._copyData) return;
+  var el = document.getElementById('copied');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(window._copyData).then(function() {
+      el.style.display = 'block';
+      setTimeout(function(){ el.style.display = 'none'; }, 2500);
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = window._copyData;
+    ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    el.style.display = 'block';
+    setTimeout(function(){ el.style.display = 'none'; }, 2500);
+  }
+}
+
+function recalc() {
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('calcCard').style.display = 'block';
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
